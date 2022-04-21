@@ -93,7 +93,7 @@ FROM
     users
     address  
 
-    SELECT 
+SELECT 
     *, COUNT(id)
 FROM
     users
