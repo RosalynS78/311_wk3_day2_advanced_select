@@ -27,6 +27,8 @@ We'll use the same database as we did yesterday but this new initialization will
 
 We are going to run a couple SQL queries and put the answers in the "Query Responses" section of this README. The query instructions are intentionally written in plain english. It's up to you to translate that into a SELECT statement.
 
+
+
 1. Get a sum of all the user_ids from the `usersAddress` table grouped by state. Enter the values for the specific states below.
 
 2. Find the most popular area code in the `usersContact` table. 
@@ -44,13 +46,60 @@ We are going to run a couple SQL queries and put the answers in the "Query Respo
   * TX:
   * WY:
 
+Answer - 'AK', '640'
+Answer - 'CT', '1556'
+Answer - 'TX', '7435'
+Answer - 'WY', '822'
+
+SELECT 
+    users, SUM(id)
+FROM
+    users
+    address
+GROUP BY state
+  
 2.
-  * Area code:
+  * Area code: 
+  
+Answer - '973'
+
+SELECT 
+    *,
+    SUBSTRING(phone1, 1, 3) AS area_code,
+    COUNT(SUBSTRING(phone1, 1, 3)) AS tally
+FROM
+    users
+    contact
+GROUP BY area_code
+ORDER BY tally DESC
 
 3.
   * first_name:
   * county:
   * county total:
+
+Answer - 'Abel'
+Answer - 'Ada'
+Answer - '11'
+
+SELECT 
+    MIN(first_name)
+FROM
+    users
+
+SELECT 
+    MIN(county)
+FROM
+    users
+    address  
+
+    SELECT 
+    *, COUNT(id)
+FROM
+    users
+    address
+GROUP BY county
+ORDER BY COUNT(id) DESC  
 
 
 ## Summary
