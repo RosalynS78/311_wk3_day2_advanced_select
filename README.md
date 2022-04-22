@@ -46,17 +46,17 @@ We are going to run a couple SQL queries and put the answers in the "Query Respo
   * TX:
   * WY:
 
-Answer - 'AK', '640'
-Answer - 'CT', '1556'
-Answer - 'TX', '7435'
-Answer - 'WY', '822'
+Answer - 'AK', '1422'
+Answer - 'CT', '999'
+Answer - 'TX', '7908'
+Answer - 'WY', '1271'
 
 SELECT 
-    users, SUM(id)
+    *, SUM(user_id)
 FROM
-    users
-    address
+    usersaddress
 GROUP BY state
+ORDER BY state
   
 2.
   * Area code: 
@@ -68,8 +68,7 @@ SELECT
     SUBSTRING(phone1, 1, 3) AS area_code,
     COUNT(SUBSTRING(phone1, 1, 3)) AS tally
 FROM
-    users
-    contact
+    userscontact
 GROUP BY area_code
 ORDER BY tally DESC
 
@@ -78,28 +77,18 @@ ORDER BY tally DESC
   * county:
   * county total:
 
-Answer - 'Abel'
-Answer - 'Ada'
-Answer - '11'
+Answer - 'Andra'
+Answer - 'New York'
+Answer - '14'
 
 SELECT 
-    MIN(first_name)
+    MIN(first_name) AS name, county, COUNT(county) AS tally
 FROM
-    users
-
-SELECT 
-    MIN(county)
-FROM
-    users
-    address  
-
-SELECT 
-    *, COUNT(id)
-FROM
-    users
-    address
+    users u
+        JOIN
+    usersaddress ua ON u.id = user_id
 GROUP BY county
-ORDER BY COUNT(id) DESC  
+HAVING tally > 10
 
 
 ## Summary
